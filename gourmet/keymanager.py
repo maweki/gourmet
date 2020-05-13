@@ -30,11 +30,6 @@ class KeyManager:
             from . import recipeManager
             rm = recipeManager.default_rec_manager()
         self.rm = rm
-        self.cooking_verbs=cooking_verbs
-        # This needs to be made sane i18n-wise
-        self.ignored = defaults.IGNORE
-        self.ignored.extend(self.cooking_verbs)
-        self.ignored_regexp = re.compile("[,; ]?(" + '|'.join(self.ignored) + ")[,; ]?")
         if self.rm.fetch_len(self.rm.keylookup_table) == 0:
             self.initialize_from_defaults()
         self.initialize_categories()
@@ -49,10 +44,6 @@ class KeyManager:
                      'count':1}
                     )
         self.rm.keylookup_table.insert().execute(dics)
-
-    def make_regexp_for_strings (self, ignored):
-        ret = "("
-        ignored.join("|")
 
     def regexp_for_all_words (self, txt):
         """Return a regexp to match any of the words in string."""
@@ -233,33 +224,6 @@ class KeyManager:
         timer.end()
         return ingr
 
-    def sing_equal(self, str1, str2):
-        debug("Start sing_equal(self,%s,%s)"%(str1,str2),10)
-        sing_str1 = self.remove_final_s(str1)
-        sing_str2 = self.remove_final_s(str2)
-        return sing_str1 == sing_str2
-
-    def remove_verbs (self,words):
-        """Handed a list of words, we remove anything from the
-        list that matches a regexp in self.ignored"""
-        debug("Start remove_verbs",10)
-        t=TimeAction('remove_verbs',0)
-        stringp=True
-        if type(words)==type([]):
-            stringp=False
-            words = string.join(words," ")
-        words = words.split(';')[0] #we ignore everything after semicolon
-        words = words.split("--")[0] # we ignore everything after double dashes too!
-        m = self.ignored_regexp.match(words)
-        while m:
-            words = words[0:m.start()] + words[m.end():]
-            m = self.ignored_regexp.match(words)
-        t.end()
-        if stringp:
-            return words
-        else:
-            return words.split()
-
 
 class KeyDictionary:
     def __init__ (self, rm):
@@ -272,15 +236,6 @@ class KeyDictionary:
         if self.rm.fetch_one(self.rm.ingredients_table,item=k): return True
         elif k in self.default: return True
         else: return False
-
-    def srt_by_2nd (self, i1, i2):
-        """Sort by the reverse order of the second item in each of i1
-        and i2"""
-        if i1[1] < i2[1]:
-            return 1
-        if i2[1] < i1[1]:
-            return -1
-        else: return 0
 
     def __getitem__ (self, k):
         kvw = self.rm.fetch_count(
@@ -306,20 +261,6 @@ class KeyDictionary:
             lst.append((i, self.__getitem__(i)))
         lst.extend(list(self.default.items()))
         return lst
-
-cooking_verbs=["cored",
-               "peeled",
-               "sliced",
-               "chopped",
-               "diced",
-               "pureed",
-               "blended",
-               "grated",
-               "minced",
-               "cored",
-               "heated",
-               "warmed",
-               "chilled"]
 
 def get_keymanager (*args, **kwargs):
     try:
