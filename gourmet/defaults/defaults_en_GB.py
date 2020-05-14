@@ -653,32 +653,6 @@ class Language(AbstractLanguage):
         ("dl", "g") : 100,
         ("l", "kg") : 1}
 
-    def add_itm (kd, k, v):
-        if k in kd:
-            kd[k].append(v)
-        else:
-            kd[k]=[v]
-
-    ## now we set up our dictionaries
-    keydic = {}
-    shopdic = {}
-    for lst in SYNONYMS:
-        k = lst[0]
-        for i in lst:
-            add_itm(keydic,i,k)
-
-    for amb,lst in list(AMBIGUOUS.items()):
-        if amb in keydic:
-            keydic[amb] += lst
-        else:
-            keydic[amb] = lst
-
-    for row in INGREDIENT_DATA:
-        name,key,shop=row
-        add_itm(keydic,name,key)
-        shopdic[name]=shop
-
-
     irregular_plurals={
         "geese":"goose",
         }
