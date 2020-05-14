@@ -104,7 +104,7 @@ class Language(AbstractLanguage):
 
         # Irregular plurals
         ["Äpfel","Apfel"],
-        ["Pfirsiche""Pfirsich"],
+        ["Pfirsiche","Pfirsich"],
         ["Nüsse", "Nuss"],
         ["Eier","Ei"]
 
