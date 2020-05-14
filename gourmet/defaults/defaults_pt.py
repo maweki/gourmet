@@ -108,23 +108,23 @@ class Language(AbstractLanguage):
     #
     # ["standard", ["alternate1","alternate2","alternate3",...]]
 
-    UNITS = [["caixa" , ["cx", "cx."]],
-             ["gota", ["gota"]],
-             ["pitada", ["pitada"]],
-             ["colher de café", ["Colher de café"]],
-             ["colher de chá", ["Colher de chá"]],
-             ["colher de sobremesa", ["Colher de sobremesa"]],
-             ["colher de sopa", ["Colher de sopa"]],
-             ["kg", ["quilograma"]],
-             ["xícara de chá", ["Xícara de chá"]],
-             ["xícara de café", ["Xícara de café"]],
-             ["ml", ["mililitro"]],
-             ["cl", ["centilitro"]],
-             ["dl", ["decilitro"]],
-             ["l", ["litro"]],
-             ["g", ["grama"]],
-             ["mg", ["miligrama"]],
-             ["kg", ["quilograma"]]
+    UNITS = [("caixa" , ["cx", "cx."]),
+             ("gota", ["gota"]),
+             ("pitada", ["pitada"]),
+             ("colher de café", ["Colher de café"]),
+             ("colher de chá", ["Colher de chá"]),
+             ("colher de sobremesa", ["Colher de sobremesa"]),
+             ("colher de sopa", ["Colher de sopa"]),
+             ("kg", ["quilograma"]),
+             ("xícara de chá", ["Xícara de chá"]),
+             ("xícara de café", ["Xícara de café"]),
+             ("ml", ["mililitro"]),
+             ("cl", ["centilitro"]),
+             ("dl", ["decilitro"]),
+             ("l", ["litro"]),
+             ("g", ["grama"]),
+             ("mg", ["miligrama"]),
+             ("kg", ["quilograma"]),
              ]
 
     # The following sets up unit groups. Users will be able to turn
@@ -152,7 +152,7 @@ class Language(AbstractLanguage):
         ## will be provided as an 'item' that is then looked
         ## up in the dictionary referenced here (i.e. the density_table)
         ## currently, 'density' is the only keyword used
-        ("ml", "g"):['density',1]}
+        ("ml", "g"):('density',1)}
 
     # The units here need to correspond to the standard unit names defined
     # in UNITS
