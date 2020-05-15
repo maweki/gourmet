@@ -19,18 +19,20 @@ elif os.name == 'nt':
     locid = windll.kernel32.GetUserDefaultLangID()
     loc = locale.windows_locale[locid]
 
+importLang: Optional[AbstractLanguage] = None
 if loc:
     try:
-        lang = __import__('defaults_%s'%loc,globals(),locals(), level=1).Language
+        importLang = __import__('defaults_%s'%loc,globals(),locals(), level=1).Language
     except ImportError:
         try:
-            lang = __import__('defaults_%s'%loc[0:2],globals(),locals(), level=1).Language
+            importLang = __import__('defaults_%s'%loc[0:2],globals(),locals(), level=1).Language
         except ImportError:
-            lang = __import__('defaults_%s'%deflang,globals(),locals(), level=1).Language
+            importLang = __import__('defaults_%s'%deflang,globals(),locals(), level=1).Language
 
-if not lang:
+if not importLang:
     lang = __import__('defaults_%s'%deflang,globals(),locals()).Language
-
+else:
+    lang = importLang
 
 # The next item is used to allow us to know some things about handling the language
 try:
