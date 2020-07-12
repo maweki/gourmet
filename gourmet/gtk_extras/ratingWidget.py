@@ -463,7 +463,7 @@ if __name__ == '__main__':
     s = StarGenerator()
     for i in range(10):
         hb = Gtk.HBox()
-        hb.pack_start(StarButton(s,start_value=i),fill=False,expand=False)
+        hb.pack_start(StarButton(s,start_value=i),False,False,0)
         vb.add(hb)
     w=Gtk.Window()
     w.add(vb)
