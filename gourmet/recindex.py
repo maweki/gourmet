@@ -576,6 +576,8 @@ class RecIndex:
                 )
             # self.rmodel.row_changed(self.rmodel.get_path(treeiter),treeiter)
             self.rmodel.update_iter(treeiter)
+            model.set_value(treeiter, column_number, value)
+
 
     def update_modified_recipe(self,rec,attribute,text):
         """Update a modified recipe.
