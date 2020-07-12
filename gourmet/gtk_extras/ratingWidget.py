@@ -270,11 +270,11 @@ class StarButton (Gtk.Button):
         return True
 
     def buttonpress_cb (self, widget, event):
-        x,y = event.get_coords()
-        wx,wy = self.image.translate_coordinates(self.image,int(x),int(y))
+        x,y = event.get_coords() # coordinates relative to widget
+        wx,wy = self.translate_coordinates(self.image,int(x),int(y)) # coordinates relative to star images
+        wx = min(self.image.get_pixbuf().get_width(), max(0, wx)) # clamp x values to star range
         self.star_width =  self.image.get_pixbuf().get_width() / self.image.upper
-        star = x / self.star_width + 1
-        star = int(star)
+        star = x // self.star_width
         if self.image.value >= star:
             # if we're clicking on a set icon, we want it to go away
             self.set_value(star-1)
