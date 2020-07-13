@@ -270,9 +270,9 @@ class StarButton (Gtk.Button):
         return True
 
     def buttonpress_cb (self, widget, event):
-        x,y = event.get_coords() # coordinates relative to widget
-        wx,wy = self.translate_coordinates(self.image,int(x),int(y)) # coordinates relative to star images
-        wx = min(self.image.get_pixbuf().get_width(), max(0, wx)) # clamp x values to star range
+        x, y = event.get_coords()  # coordinates relative to widget
+        wx, wy = self.translate_coordinates(self.image, int(x), int(y))  # coordinates relative to star images
+        wx = min(self.image.get_pixbuf().get_width(), max(0, wx))  # clamp x values to star range
         # clamping of pixel values is fine as the user can click outside the stars of the widget to get to 0 or 10
         self.star_width =  self.image.get_pixbuf().get_width() / self.image.upper
         star = x // self.star_width
@@ -394,7 +394,7 @@ class TreeWithStarMaker:
                 itr=mod.get_iter(path)
                 curval=mod.get_value(itr,0)
                 self.star_width = self.cellrenderer.get_property('pixbuf').get_width()/self.upper
-                starval = (cellx + 0.5 * self.star_width) // self.star_width # we translate this half a half-star since you can't click before 0, other than in the widget
+                starval = (cellx + 0.5 * self.star_width) // self.star_width  # we translate this half a half-star since you can't click before 0, as opposed to the method in the widget
                 curval = mod.get_value(itr,self.data_col)
                 self.call_handlers(starval, mod, itr, self.data_col)
             self.curpath = path
