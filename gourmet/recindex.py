@@ -563,7 +563,11 @@ class RecIndex:
             sb.set_value(sb.get_adjustment().get_upper())
             return True
 
-    def star_change_cb (self, value, model, treeiter, column_number):
+    def star_change_cb (self,
+                        value: float,
+                        model: 'RecipeModel',
+                        treeiter: Gtk.TreeIter,
+                        column_number: int) -> None:
         # itr = model.convert_iter_to_child_iter(None,treeiter)
         # self.rmodel.set_value(treeiter,column_number,value)
         rec = self.get_rec_from_iter(treeiter)
