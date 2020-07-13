@@ -568,8 +568,6 @@ class RecIndex:
                         model: 'RecipeModel',
                         treeiter: Gtk.TreeIter,
                         column_number: int) -> None:
-        # itr = model.convert_iter_to_child_iter(None,treeiter)
-        # self.rmodel.set_value(treeiter,column_number,value)
         rec = self.get_rec_from_iter(treeiter)
         if getattr(rec,'rating')!=value:
             self.rd.undoable_modify_rec(
@@ -578,7 +576,6 @@ class RecIndex:
                 self.history,
                 get_current_rec_method = lambda *args: self.get_selected_recs_from_rec_tree()[0],
                 )
-            # self.rmodel.row_changed(self.rmodel.get_path(treeiter),treeiter)
             self.rmodel.update_iter(treeiter)
             model.set_value(treeiter, column_number, value)
 
